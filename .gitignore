@@ -54,4 +54,6 @@ dkms.conf
 
 # venv
 venv
-.venv/*
+.venv
+
+*.DS_Store*

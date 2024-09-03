@@ -7,13 +7,21 @@
 
 import SwiftUI
 
+// TODO:
+// 1. Undo shape coloring
+// 2. (+)Change background color
+// 3. Hide unfilled shapes
+// 4. Gallery navigation
+// 5. PNG export
+// 6. Dwar as you drag
+// 7. 
+
 @main
 struct BeadelatorApp: App {
+    @State private var canvasGallery = CanvasGallery()
     var body: some Scene {
         WindowGroup {
-            ContentView(n_cells_width: 20, n_cells_height: 40)
+            ContentView().environment(canvasGallery)
         }
     }
 }
-
-

@@ -7,15 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA291CB22C63A934006F9FFA /* CanvasCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA291CB12C63A934006F9FFA /* CanvasCreate.swift */; };
 		EA74504B2C556FCF008AB246 /* WIPContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA74504A2C556FCF008AB246 /* WIPContent.swift */; };
+		EA881BE52C613FD300B59EC8 /* GalleryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA881BE42C613FD300B59EC8 /* GalleryData.swift */; };
+		EA881BE72C6148FF00B59EC8 /* color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA881BE62C6148FF00B59EC8 /* color.swift */; };
 		EA8A76EB2C511AAA00F4FB54 /* BeadelatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8A76EA2C511AAA00F4FB54 /* BeadelatorApp.swift */; };
-		EA8A76ED2C511AAA00F4FB54 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8A76EC2C511AAA00F4FB54 /* ContentView.swift */; };
+		EA8A76ED2C511AAA00F4FB54 /* _ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8A76EC2C511AAA00F4FB54 /* _ContentView.swift */; };
 		EA8A76EF2C511AAB00F4FB54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8A76EE2C511AAB00F4FB54 /* Assets.xcassets */; };
 		EA8A76F22C511AAB00F4FB54 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8A76F12C511AAB00F4FB54 /* Preview Assets.xcassets */; };
 		EA8A76FC2C511AAB00F4FB54 /* BeadelatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8A76FB2C511AAB00F4FB54 /* BeadelatorTests.swift */; };
 		EA8A77062C511AAB00F4FB54 /* BeadelatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8A77052C511AAB00F4FB54 /* BeadelatorUITests.swift */; };
 		EA8A77082C511AAB00F4FB54 /* BeadelatorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8A77072C511AAB00F4FB54 /* BeadelatorUITestsLaunchTests.swift */; };
-		EAFEE0242C512B2300A5FB81 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFEE0232C512B2300A5FB81 /* Models.swift */; };
+		EAADC7242C5BE9180047E031 /* Ellipse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADC7232C5BE9180047E031 /* Ellipse.swift */; };
+		EAADC7262C5BE9E70047E031 /* CanvasItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADC7252C5BE9E70047E031 /* CanvasItem.swift */; };
+		EAADC7292C5BEA0F0047E031 /* GCPointDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADC7282C5BEA0F0047E031 /* GCPointDistance.swift */; };
+		EAADC72B2C5BEF660047E031 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADC72A2C5BEF660047E031 /* ContentView.swift */; };
+		EAADC72D2C5BF1B10047E031 /* CanvasList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADC72C2C5BF1B10047E031 /* CanvasList.swift */; };
+		EAADC72F2C5BF3970047E031 /* CanvasDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADC72E2C5BF3970047E031 /* CanvasDetail.swift */; };
+		EAADC7312C5BF3D80047E031 /* CanvasRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADC7302C5BF3D80047E031 /* CanvasRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +45,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EA291CB12C63A934006F9FFA /* CanvasCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasCreate.swift; sourceTree = "<group>"; };
 		EA74504A2C556FCF008AB246 /* WIPContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WIPContent.swift; sourceTree = "<group>"; };
+		EA881BE42C613FD300B59EC8 /* GalleryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryData.swift; sourceTree = "<group>"; };
+		EA881BE62C6148FF00B59EC8 /* color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = color.swift; sourceTree = "<group>"; };
 		EA8A76E72C511AAA00F4FB54 /* Beadelator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beadelator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8A76EA2C511AAA00F4FB54 /* BeadelatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeadelatorApp.swift; sourceTree = "<group>"; };
-		EA8A76EC2C511AAA00F4FB54 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		EA8A76EC2C511AAA00F4FB54 /* _ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _ContentView.swift; sourceTree = "<group>"; };
 		EA8A76EE2C511AAB00F4FB54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EA8A76F12C511AAB00F4FB54 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EA8A76F72C511AAB00F4FB54 /* BeadelatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeadelatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,7 +59,13 @@
 		EA8A77012C511AAB00F4FB54 /* BeadelatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeadelatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8A77052C511AAB00F4FB54 /* BeadelatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeadelatorUITests.swift; sourceTree = "<group>"; };
 		EA8A77072C511AAB00F4FB54 /* BeadelatorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeadelatorUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		EAFEE0232C512B2300A5FB81 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		EAADC7232C5BE9180047E031 /* Ellipse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ellipse.swift; sourceTree = "<group>"; };
+		EAADC7252C5BE9E70047E031 /* CanvasItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasItem.swift; sourceTree = "<group>"; };
+		EAADC7282C5BEA0F0047E031 /* GCPointDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCPointDistance.swift; sourceTree = "<group>"; };
+		EAADC72A2C5BEF660047E031 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		EAADC72C2C5BF1B10047E031 /* CanvasList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasList.swift; sourceTree = "<group>"; };
+		EAADC72E2C5BF3970047E031 /* CanvasDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasDetail.swift; sourceTree = "<group>"; };
+		EAADC7302C5BF3D80047E031 /* CanvasRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +96,8 @@
 		EA8A76DE2C511AAA00F4FB54 = {
 			isa = PBXGroup;
 			children = (
+				EA74504A2C556FCF008AB246 /* WIPContent.swift */,
+				EA8A76EC2C511AAA00F4FB54 /* _ContentView.swift */,
 				EA8A76E92C511AAA00F4FB54 /* Beadelator */,
 				EA8A76FA2C511AAB00F4FB54 /* BeadelatorTests */,
 				EA8A77042C511AAB00F4FB54 /* BeadelatorUITests */,
@@ -98,12 +118,13 @@
 		EA8A76E92C511AAA00F4FB54 /* Beadelator */ = {
 			isa = PBXGroup;
 			children = (
-				EAFEE0232C512B2300A5FB81 /* Models.swift */,
+				EAADC7272C5BE9FF0047E031 /* Helpers */,
+				EAADC7222C5BE8370047E031 /* Views */,
+				EAADC7212C5BE8280047E031 /* Models */,
 				EA8A76EA2C511AAA00F4FB54 /* BeadelatorApp.swift */,
-				EA8A76EC2C511AAA00F4FB54 /* ContentView.swift */,
+				EAADC72A2C5BEF660047E031 /* ContentView.swift */,
 				EA8A76EE2C511AAB00F4FB54 /* Assets.xcassets */,
 				EA8A76F02C511AAB00F4FB54 /* Preview Content */,
-				EA74504A2C556FCF008AB246 /* WIPContent.swift */,
 			);
 			path = Beadelator;
 			sourceTree = "<group>";
@@ -131,6 +152,36 @@
 				EA8A77072C511AAB00F4FB54 /* BeadelatorUITestsLaunchTests.swift */,
 			);
 			path = BeadelatorUITests;
+			sourceTree = "<group>";
+		};
+		EAADC7212C5BE8280047E031 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EAADC7232C5BE9180047E031 /* Ellipse.swift */,
+				EAADC7252C5BE9E70047E031 /* CanvasItem.swift */,
+				EA881BE62C6148FF00B59EC8 /* color.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EAADC7222C5BE8370047E031 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EAADC72E2C5BF3970047E031 /* CanvasDetail.swift */,
+				EAADC72C2C5BF1B10047E031 /* CanvasList.swift */,
+				EAADC7302C5BF3D80047E031 /* CanvasRow.swift */,
+				EA291CB12C63A934006F9FFA /* CanvasCreate.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EAADC7272C5BE9FF0047E031 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EA881BE42C613FD300B59EC8 /* GalleryData.swift */,
+				EAADC7282C5BEA0F0047E031 /* GCPointDistance.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,9 +314,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAFEE0242C512B2300A5FB81 /* Models.swift in Sources */,
-				EA8A76ED2C511AAA00F4FB54 /* ContentView.swift in Sources */,
+				EA291CB22C63A934006F9FFA /* CanvasCreate.swift in Sources */,
+				EAADC7312C5BF3D80047E031 /* CanvasRow.swift in Sources */,
+				EA8A76ED2C511AAA00F4FB54 /* _ContentView.swift in Sources */,
+				EA881BE52C613FD300B59EC8 /* GalleryData.swift in Sources */,
+				EAADC7242C5BE9180047E031 /* Ellipse.swift in Sources */,
+				EAADC72B2C5BEF660047E031 /* ContentView.swift in Sources */,
+				EAADC72D2C5BF1B10047E031 /* CanvasList.swift in Sources */,
+				EAADC7292C5BEA0F0047E031 /* GCPointDistance.swift in Sources */,
 				EA74504B2C556FCF008AB246 /* WIPContent.swift in Sources */,
+				EAADC72F2C5BF3970047E031 /* CanvasDetail.swift in Sources */,
+				EA881BE72C6148FF00B59EC8 /* color.swift in Sources */,
+				EAADC7262C5BE9E70047E031 /* CanvasItem.swift in Sources */,
 				EA8A76EB2C511AAA00F4FB54 /* BeadelatorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
