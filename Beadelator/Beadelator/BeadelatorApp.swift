@@ -13,7 +13,7 @@ import SwiftUI
 // 3. Hide unfilled shapes
 // 4. Gallery navigation
 // 5. PNG export
-// 6. Dwar as you drag
+// 6. Draw as you drag
 // 7. 
 
 @main

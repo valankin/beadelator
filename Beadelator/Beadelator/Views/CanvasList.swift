@@ -38,7 +38,7 @@ struct CanvasList: View {
                     canvasGallery.canvases.remove(atOffsets: indexSet)
                 }
                 
-            }.navigationTitle("Gallery").on
+            }.navigationTitle("Gallery")
         } detail: {
                 
             if let canvasID {
