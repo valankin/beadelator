@@ -12,42 +12,48 @@ import UIKit
 struct CanvasDetail: View {
     @Environment(CanvasGallery.self) var canvasGallery
     
-    /// Use a binding so that every canvas “owns” its persistent drawing state.
+    /// Bind to the canvas from the gallery so its state is persistent.
     @Binding var canvas: CanvasItem
     
-    // For undo functionality.
+    // MARK: - Drawing & Undo State
+    
+    // Undo stack stores previous state for an ellipse.
     @State private var undoStack: [(index: Int, previousColor: Color, previousIsSelected: Bool)] = []
     
-    // Keep track of the last updated ellipse in the current drag.
+    // Keeps track of the last updated ellipse index during a drag.
     @State private var lastUpdatedIndexDuringDrag: Int? = nil
     
-    // Color pickers.
+    // MARK: - Control States
+    
     @State private var selectedShapeColor: Color = .white
     @State private var defaultShapeColor: Color = .gray
     @State private var selectedBackgroundColor: Color = .gray
-    
-    // Hide unfilled shapes toggle.
     @State private var hideUnfilledShapes: Bool = false
-
-    // For PNG export.
+    @State private var controlsVisible: Bool = true
+    
+    // Toggle between drawing and panning modes.
+    @State private var drawingMode: Bool = true
+    
+    // MARK: - Zoom State
+    
+    @State private var currentScale: CGFloat = 1.0
+    
+    // MARK: - Export State
+    
     @State private var exportImage: UIImage? = nil
     @State private var showingShareSheet: Bool = false
     
-    // Toggle for showing/hiding controls.
-    @State private var controlsVisible: Bool = true
+    // MARK: - Canvas Dimensions
     
-    // Canvas size.
     let canvasWidth = 800
     let canvasHeight = 1000
     var canvasSize: CGSize { CGSize(width: canvasWidth, height: canvasHeight) }
     
-    init(canvas: Binding<CanvasItem>) {
-        _canvas = canvas
-    }
+    // MARK: - Body
     
     var body: some View {
         VStack {
-            // Toggle bar for showing/hiding controls.
+            // --- Controls Toggle ---
             HStack {
                 Button(action: { controlsVisible.toggle() }) {
                     HStack {
@@ -59,7 +65,7 @@ struct CanvasDetail: View {
                 Spacer()
             }
             
-            // Conditionally show the control section.
+            // --- Control Panel (if visible) ---
             if controlsVisible {
                 VStack(spacing: 0) {
                     HStack {
@@ -94,36 +100,63 @@ struct CanvasDetail: View {
             
             Divider()
             
-            // The drawing canvas.
+            // --- Drawing Area in a ScrollView ---
             ScrollView([.horizontal, .vertical]) {
-                Canvas { context, size in
-                    // Draw each ellipse (skip those unfilled if requested).
-                    for ellipse in canvas.ellipses {
-                        if hideUnfilledShapes && ellipse.color == defaultShapeColor {
-                            continue
-                        }
-                        let rect = getRect(ellipse: ellipse)
-                        drawEllipse(context: context, rect: rect, color: ellipse.color)
-                    }
+                // Use a computed view for the canvas so we can conditionally attach the gesture.
+                Group {
+                    drawingCanvas
                 }
-                .frame(width: canvasSize.width, height: canvasSize.height)
-                .cornerRadius(8)
-                .background(selectedBackgroundColor)
-                // Draw as you drag.
-                .gesture(
-                    DragGesture(minimumDistance: 0)
-                        .onChanged(handleDrag)
-                        .onEnded { _ in lastUpdatedIndexDuringDrag = nil }
-                )
+                .if(drawingMode) { view in
+                    view.gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged(handleDrag)
+                            .onEnded { _ in lastUpdatedIndexDuringDrag = nil }
+                    )
+                }
             }
+            
+            // --- Zoom & Mode Controls ---
+            HStack {
+                // Toggle between drawing and panning.
+                Button(action: {
+                    drawingMode.toggle()
+                }) {
+                    Image(systemName: drawingMode ? "pencil" : "hand.draw")
+                        .font(.title)
+                }
+                .padding(.horizontal)
+                
+                // Zoom controls.
+                Button(action: {
+                    withAnimation { currentScale = max(currentScale - 0.1, 0.5) }
+                }) {
+                    Image(systemName: "minus.magnifyingglass")
+                        .font(.title)
+                }
+                .padding(.horizontal)
+                
+                Slider(value: $currentScale, in: 0.5...2.0, step: 0.1)
+                    .padding(.horizontal)
+                
+                Button(action: {
+                    withAnimation { currentScale = min(currentScale + 0.1, 2.0) }
+                }) {
+                    Image(systemName: "plus.magnifyingglass")
+                        .font(.title)
+                }
+                .padding(.horizontal)
+                
+                Text("\(Int(currentScale * 100))%")
+                    .padding(.trailing)
+            }
+            .padding(.vertical)
         }
         .onAppear {
-            // Initialize ellipses only once.
+            // Initialize the ellipses only once.
             if canvas.ellipses.isEmpty {
                 setupEllipses(color: defaultShapeColor)
             }
         }
-        // Present a share sheet when PNG export is ready.
         .sheet(isPresented: $showingShareSheet) {
             if let image = exportImage {
                 ShareSheet(activityItems: [image])
@@ -131,22 +164,58 @@ struct CanvasDetail: View {
         }
     }
     
-    /// Draw an ellipse within a given rectangle.
+    // MARK: - Computed Canvas View
+    
+    /// The canvas view that draws the ellipses. It applies scaling to each ellipse.
+    var drawingCanvas: some View {
+        Canvas { context, _ in
+            for ellipse in canvas.ellipses {
+                if hideUnfilledShapes && ellipse.color == defaultShapeColor { continue }
+                let scaledRect = getScaledRect(for: ellipse)
+                drawEllipse(context: context, rect: scaledRect, color: ellipse.color)
+            }
+        }
+        .frame(width: canvasSize.width * currentScale,
+               height: canvasSize.height * currentScale)
+        .background(selectedBackgroundColor)
+        .cornerRadius(8)
+    }
+    
+    // MARK: - Drawing Helpers
+    
+    /// Draws an ellipse within the specified rectangle.
     func drawEllipse(context: GraphicsContext, rect: CGRect, color: Color) {
         let path = Path(ellipseIn: rect)
         context.fill(path, with: .color(color))
         context.stroke(path, with: .color(.black), lineWidth: 1)
     }
     
-    /// Get the bounding rectangle for an ellipse.
+    /// Returns the original bounding rectangle for an ellipse (in unscaled coordinates).
     func getRect(ellipse: Ellipse) -> CGRect {
-        CGRect(origin: CGPoint(x: ellipse.center.x - ellipse.radius.width,
-                                 y: ellipse.center.y - ellipse.radius.height),
-               size: CGSize(width: ellipse.radius.width * 2,
-                            height: ellipse.radius.height * 2))
+        CGRect(
+            origin: CGPoint(
+                x: ellipse.center.x - ellipse.radius.width,
+                y: ellipse.center.y - ellipse.radius.height
+            ),
+            size: CGSize(
+                width: ellipse.radius.width * 2,
+                height: ellipse.radius.height * 2
+            )
+        )
     }
     
-    /// Create the beads (ellipses) on the canvas.
+    /// Returns the rectangle for an ellipse scaled by the current zoom factor.
+    func getScaledRect(for ellipse: Ellipse) -> CGRect {
+        let rect = getRect(ellipse: ellipse)
+        return CGRect(
+            x: rect.origin.x * currentScale,
+            y: rect.origin.y * currentScale,
+            width: rect.size.width * currentScale,
+            height: rect.size.height * currentScale
+        )
+    }
+    
+    /// Initializes the canvas with ellipses if empty.
     func setupEllipses(color: Color) {
         let step: Int = canvasWidth / canvas.n_cells_width
         let radiusSmall: Int = step / 6
@@ -172,22 +241,24 @@ struct CanvasDetail: View {
         }
     }
     
-    /// Convert the drag gesture location (in our case, no extra scaling is applied).
+    // MARK: - Drag Gesture Handling
+    
+    /// Converts the drag location (from the scaled view) to the unscaled coordinate system.
     func getScaledTouchLocation(value: DragGesture.Value) -> CGPoint {
-        value.location
+        CGPoint(x: value.location.x / currentScale, y: value.location.y / currentScale)
     }
     
-    /// As the user drags, update the ellipse under the finger.
+    /// Handles the drag gesture to update the nearest ellipse (only when in drawing mode).
     func handleDrag(value: DragGesture.Value) {
         let touchLocation = getScaledTouchLocation(value: value)
         guard let nearestEllipse = findNearestElipse(ellipses: canvas.ellipses, touchLocation: touchLocation),
               let nearestIndex = getEllipseIndex(ellipses: canvas.ellipses, ellipse: nearestEllipse)
         else { return }
         
-        // Avoid updating repeatedly on the same bead in one drag.
+        // Avoid updating repeatedly on the same ellipse during a single drag.
         if lastUpdatedIndexDuringDrag == nearestIndex { return }
         
-        // Save current state for undo.
+        // Save the current state for undo.
         let oldState = (index: nearestIndex,
                         previousColor: canvas.ellipses[nearestIndex].color,
                         previousIsSelected: canvas.ellipses[nearestIndex].isSelected)
@@ -198,7 +269,7 @@ struct CanvasDetail: View {
         lastUpdatedIndexDuringDrag = nearestIndex
     }
     
-    /// Update a bead’s color (toggle between the selected color and the default).
+    /// Toggles an ellipse’s color between the selected color and the default.
     func updateEllipseOnTouch(nearestEllipseIndex: Int, nearestEllipseColor: Color) {
         let newColor: Color = (nearestEllipseColor != selectedShapeColor) ? selectedShapeColor : defaultShapeColor
         canvas.ellipses[nearestEllipseIndex].color = newColor
@@ -212,20 +283,20 @@ struct CanvasDetail: View {
         canvas.ellipses[lastAction.index].isSelected = lastAction.previousIsSelected
     }
     
-    /// Export the current canvas as a PNG image and present a share sheet.
+    // MARK: - PNG Export
+    
+    /// Exports the current canvas view as a PNG image and presents a share sheet.
     func exportPNG() {
-        // Create an offscreen renderer for the canvas.
         let renderer = ImageRenderer(content:
-            Canvas { context, size in
+            Canvas { context, _ in
                 for ellipse in canvas.ellipses {
-                    if hideUnfilledShapes && ellipse.color == defaultShapeColor {
-                        continue
-                    }
-                    let rect = getRect(ellipse: ellipse)
-                    drawEllipse(context: context, rect: rect, color: ellipse.color)
+                    if hideUnfilledShapes && ellipse.color == defaultShapeColor { continue }
+                    let scaledRect = getScaledRect(for: ellipse)
+                    drawEllipse(context: context, rect: scaledRect, color: ellipse.color)
                 }
             }
-            .frame(width: canvasSize.width, height: canvasSize.height)
+            .frame(width: canvasSize.width * currentScale,
+                   height: canvasSize.height * currentScale)
             .background(selectedBackgroundColor)
         )
         renderer.scale = UIScreen.main.scale
