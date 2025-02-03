@@ -8,7 +8,6 @@
 import SwiftUI
 import Combine
 
-
 @Observable
 class TextValidator {
     var text = ""
@@ -17,12 +16,11 @@ class TextValidator {
 struct CanvasCreate: View {
     
     @Environment(CanvasGallery.self) var canvasGallery
-
-    @State var textValidator = TextValidator()
+    /// Binding to update the selected canvas ID in the master view.
+    @Binding var selectedCanvasID: UUID?
     
+    @State var textValidator = TextValidator()
     @State private var errorMessage: String? = nil
-    @State private var newCanvasName: String = ""
-
 
     var body: some View {
         HStack {
@@ -30,13 +28,12 @@ struct CanvasCreate: View {
                 createNewCanvas()
             } label: {
                 Image(systemName: "doc.badge.plus")
-            
             }
             .disabled(textValidator.text.isEmpty)
             .padding()
             
             if let errorMessage = errorMessage {
-            Text(errorMessage)
+                Text(errorMessage)
                     .foregroundColor(.red)
                     .padding()
             }
@@ -45,35 +42,37 @@ struct CanvasCreate: View {
                 .padding(.horizontal, 20.0)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .onReceive(Just(textValidator.text)) { newValue in
+                    // Allow only word characters (remove non-word characters)
                     let value = newValue.replacingOccurrences(
-                        of: "\\W", with: "", options: .regularExpression)
-                    
+                        of: "\\W",
+                        with: "",
+                        options: .regularExpression
+                    )
                     if value != newValue {
                         self.textValidator.text = value
                     }
                 }
         }
     }
+    
     func createNewCanvas() {
-        
-        if textValidator.text.isEmpty {
+        guard !textValidator.text.isEmpty else {
             errorMessage = "Cannot be empty!"
             return
         }
         
-        if canvasGallery.canvases.first(where: {$0.title == textValidator.text}) != nil  {
+        if canvasGallery.canvases.first(where: { $0.title == textValidator.text }) != nil {
             errorMessage = "Canvas exists!"
-            
         } else {
             let newCanvas = CanvasItem(
                 id: UUID(),
                 title: textValidator.text,
                 ellipses: [],
                 n_cells_width: 30,
-                n_cells_height: 60)
-            
+                n_cells_height: 60
+            )
             canvasGallery.canvases.append(newCanvas)
-            
+            selectedCanvasID = newCanvas.id
             textValidator.text = ""
             errorMessage = nil
         }
@@ -81,6 +80,6 @@ struct CanvasCreate: View {
 }
 
 #Preview {
-    CanvasCreate()
+    CanvasCreate(selectedCanvasID: .constant(nil))
         .environment(CanvasGallery())
 }
