@@ -48,8 +48,12 @@ struct CanvasDetail: View {
             HStack {
                 ColorPicker("Shape color", selection: $selectedShapeColor)
                     .padding()
+            }
+            HStack {
                 ColorPicker("Background color", selection: $selectedBackgroundColor)
                     .padding()
+            }
+            HStack {
                 Toggle("Hide unfilled shapes", isOn: $hideUnfilledShapes)
                     .padding()
             }
