@@ -33,6 +33,9 @@ struct CanvasDetail: View {
     @State private var exportImage: UIImage? = nil
     @State private var showingShareSheet: Bool = false
     
+    // Toggle for showing/hiding controls.
+    @State private var controlsVisible: Bool = true
+    
     // Canvas size.
     let canvasWidth = 800
     let canvasHeight = 1000
@@ -44,36 +47,53 @@ struct CanvasDetail: View {
     
     var body: some View {
         VStack {
-            // Top controls.
+            // Toggle bar for showing/hiding controls.
             HStack {
-                ColorPicker("Shape color", selection: $selectedShapeColor)
-                    .padding()
-            }
-            HStack {
-                ColorPicker("Background color", selection: $selectedBackgroundColor)
-                    .padding()
-            }
-            HStack {
-                Toggle("Hide unfilled shapes", isOn: $hideUnfilledShapes)
-                    .padding()
-            }
-            // Undo and export buttons.
-            HStack {
-                Button {
-                    undo()
-                } label: {
-                    Label("Undo", systemImage: "arrow.uturn.backward")
+                Button(action: { controlsVisible.toggle() }) {
+                    HStack {
+                        Text(controlsVisible ? "Hide Controls" : "Show Controls")
+                        Image(systemName: controlsVisible ? "chevron.up" : "chevron.down")
+                    }
                 }
-                .padding()
-                
-                Button {
-                    exportPNG()
-                } label: {
-                    Label("Export PNG", systemImage: "square.and.arrow.up")
-                }
-                .padding()
+                .padding(.horizontal)
+                Spacer()
             }
+            
+            // Conditionally show the control section.
+            if controlsVisible {
+                VStack(spacing: 0) {
+                    HStack {
+                        ColorPicker("Shape color", selection: $selectedShapeColor)
+                            .padding()
+                    }
+                    HStack {
+                        ColorPicker("Background color", selection: $selectedBackgroundColor)
+                            .padding()
+                    }
+                    HStack {
+                        Toggle("Hide unfilled shapes", isOn: $hideUnfilledShapes)
+                            .padding()
+                    }
+                    HStack {
+                        Button {
+                            undo()
+                        } label: {
+                            Label("Undo", systemImage: "arrow.uturn.backward")
+                        }
+                        .padding()
+                        
+                        Button {
+                            exportPNG()
+                        } label: {
+                            Label("Export PNG", systemImage: "square.and.arrow.up")
+                        }
+                        .padding()
+                    }
+                }
+            }
+            
             Divider()
+            
             // The drawing canvas.
             ScrollView([.horizontal, .vertical]) {
                 Canvas { context, size in
