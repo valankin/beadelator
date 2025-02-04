@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		964816992D5141D0002E2BFB /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964816982D5141C7002E2BFB /* ShareSheet.swift */; };
+		9648169B2D514718002E2BFB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648169A2D514713002E2BFB /* Extensions.swift */; };
 		EA291CB22C63A934006F9FFA /* CanvasCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA291CB12C63A934006F9FFA /* CanvasCreate.swift */; };
 		EA74504B2C556FCF008AB246 /* WIPContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA74504A2C556FCF008AB246 /* WIPContent.swift */; };
 		EA881BE52C613FD300B59EC8 /* GalleryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA881BE42C613FD300B59EC8 /* GalleryData.swift */; };
@@ -45,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		964816982D5141C7002E2BFB /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		9648169A2D514713002E2BFB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EA291CB12C63A934006F9FFA /* CanvasCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasCreate.swift; sourceTree = "<group>"; };
 		EA74504A2C556FCF008AB246 /* WIPContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WIPContent.swift; sourceTree = "<group>"; };
 		EA881BE42C613FD300B59EC8 /* GalleryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryData.swift; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 		EAADC7222C5BE8370047E031 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				964816982D5141C7002E2BFB /* ShareSheet.swift */,
 				EAADC72E2C5BF3970047E031 /* CanvasDetail.swift */,
 				EAADC72C2C5BF1B10047E031 /* CanvasList.swift */,
 				EAADC7302C5BF3D80047E031 /* CanvasRow.swift */,
@@ -178,6 +183,7 @@
 		EAADC7272C5BE9FF0047E031 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				9648169A2D514713002E2BFB /* Extensions.swift */,
 				EA881BE42C613FD300B59EC8 /* GalleryData.swift */,
 				EAADC7282C5BEA0F0047E031 /* GCPointDistance.swift */,
 			);
@@ -324,9 +330,11 @@
 				EAADC7292C5BEA0F0047E031 /* GCPointDistance.swift in Sources */,
 				EA74504B2C556FCF008AB246 /* WIPContent.swift in Sources */,
 				EAADC72F2C5BF3970047E031 /* CanvasDetail.swift in Sources */,
+				9648169B2D514718002E2BFB /* Extensions.swift in Sources */,
 				EA881BE72C6148FF00B59EC8 /* color.swift in Sources */,
 				EAADC7262C5BE9E70047E031 /* CanvasItem.swift in Sources */,
 				EA8A76EB2C511AAA00F4FB54 /* BeadelatorApp.swift in Sources */,
+				964816992D5141D0002E2BFB /* ShareSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +506,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -506,7 +515,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = valankin.Beadelator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -527,6 +536,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -535,7 +545,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = valankin.Beadelator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

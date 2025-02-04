@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct CanvasList: View {
     @Environment(CanvasGallery.self) var canvasGallery
     
@@ -17,44 +16,37 @@ struct CanvasList: View {
     
     var body: some View {
         @Bindable var canvasGallery = canvasGallery
+        
         NavigationSplitView {
-//            CanvasCreate()
-//            List(canvasGallery.canvases, selection: $canvasID) {
-//                canvas in
-//                NavigationLink(canvas.title, value: canvas.id)
-//            }
-            
             Divider()
-            CanvasCreate()
+            // Pass the binding for new canvas creation.
+            CanvasCreate(selectedCanvasID: $canvasID)
             Divider()
             List(selection: $canvasID) {
-                ForEach(canvasGallery.canvases) { canvas in
-                    NavigationLink {
-                        CanvasDetail(canvas: canvas)
-                    } label :{
+                ForEach(Array(canvasGallery.canvases.enumerated()), id: \.element.id) { index, canvas in
+                    NavigationLink(value: canvas.id) {
                         CanvasRow(canvas: canvas)
                     }
-                }.onDelete { indexSet in
+                    .tag(canvas.id)
+                }
+                .onDelete { indexSet in
                     canvasGallery.canvases.remove(atOffsets: indexSet)
                 }
-                
-            }.navigationTitle("Gallery").on
+            }
+            .navigationTitle("Gallery")
         } detail: {
-                
-            if let canvasID {
-                if let item = canvasGallery.byID(id: canvasID) {
-                    CanvasDetail(canvas: item)
-                }
+            if let canvasID = canvasID,
+               let index = canvasGallery.canvases.firstIndex(where: { $0.id == canvasID }) {
+                // Pass a binding to the selected canvas.
+                CanvasDetail(canvas: $canvasGallery.canvases[index])
             } else {
                 detailView()
             }
-                
-            
         }
     }
     
     func detailView() -> some View {
-        return VStack {
+        VStack {
             HStack {
                 Spacer()
                 Image(systemName: "s.square").foregroundColor(.cyan)
@@ -74,7 +66,6 @@ struct CanvasList: View {
             }
             Divider()
             Spacer()
-            
             VStack {
                 HStack {
                     Image(systemName: "heart.circle")
@@ -99,7 +90,6 @@ struct CanvasList: View {
                     Image(systemName: "heart.circle")
                         .frame(width: imgSize, height: imgSize)
                 }
-                
                 HStack {
                     Image(systemName: "heart.circle")
                         .frame(width: imgSize, height: imgSize)
@@ -115,7 +105,6 @@ struct CanvasList: View {
             }
             Spacer()
         }
-        
     }
 }
 
@@ -123,4 +112,3 @@ struct CanvasList: View {
     CanvasList()
         .environment(CanvasGallery())
 }
-
