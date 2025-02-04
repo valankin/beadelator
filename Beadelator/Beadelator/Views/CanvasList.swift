@@ -38,7 +38,7 @@ struct CanvasList: View {
             if let canvasID = canvasID,
                let index = canvasGallery.canvases.firstIndex(where: { $0.id == canvasID }) {
                 // Pass a binding to the selected canvas.
-                CanvasDetail(canvas: $canvasGallery.canvases[index])
+                CanvasDetail(canvas: $canvasGallery.canvases[index]).id(canvasGallery.canvases[index].id)
             } else {
                 detailView()
             }

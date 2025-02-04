@@ -8,13 +8,7 @@
 import SwiftUI
 
 // TODO:
-// 1. Undo shape coloring
-// 2. (+)Change background color
-// 3. Hide unfilled shapes
-// 4. Gallery navigation
-// 5. PNG export
-// 6. Draw as you drag
-// 7. 
+// none
 
 @main
 struct BeadelatorApp: App {
